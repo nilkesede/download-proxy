@@ -3,7 +3,7 @@ const download = require('./download');
 
 const app = express();
 const port = 1337 || process.env.PORT;
-const folder = '/tmp';
+const folder = '/tmp' || process.env.FOLDER;
 
 app.get('/', (req, res) => {
   const {url} = req.query;
