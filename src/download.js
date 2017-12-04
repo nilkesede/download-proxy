@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const request = require('request');
+const axios = require('axios');
 
-module.exports = function (arquivo, pasta) {
+module.exports = function (url, folder) {
   return new Promise(((resolve, reject) => {
-    const filename = path.basename(arquivo);
-    const dest = path.join(pasta, filename);
+    const filename = path.basename(url);
+    const dest = path.join(folder, filename);
     const writeStream = fs.createWriteStream(dest);
 
     writeStream.on('finish', () => {
@@ -16,12 +16,14 @@ module.exports = function (arquivo, pasta) {
       fs.unlink(dest, reject.bind(null, err));
     });
 
-    const readStream = request.get(arquivo);
-
-    readStream.on('error', err => {
+    axios({
+      method: 'get',
+      url,
+      responseType: 'stream'
+    }).then(response => {
+      response.data.pipe(writeStream);
+    }).catch(err => {
       fs.unlink(dest, reject.bind(null, err));
     });
-
-    readStream.pipe(writeStream);
   }));
 };
