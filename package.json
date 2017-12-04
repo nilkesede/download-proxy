@@ -4,7 +4,8 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src"
+    "start": "node src",
+    "dev": "nodemon src"
   },
   "dependencies": {
     "express": "4.16.2",
