@@ -3,17 +3,19 @@ const download = require('./download');
 
 const app = express();
 const port = 1337 || process.env.PORT;
+const folder = '/tmp';
 
 app.get('/', (req, res) => {
   const {url} = req.query;
 
   if (url) {
-    download(url, './storage')
+    download(url, folder)
       .then(filename => {
-        res.download(`./storage/${filename}`);
+        res.download(`${folder}/${filename}`);
       }).catch(err => {
         res.end(err.stack);
       });
+
     return;
   }
 

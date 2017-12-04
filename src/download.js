@@ -3,7 +3,7 @@ const fs = require('fs');
 const axios = require('axios');
 
 module.exports = function (url, folder) {
-  return new Promise(((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const filename = path.basename(url);
     const dest = path.join(folder, filename);
     const writeStream = fs.createWriteStream(dest);
@@ -25,5 +25,5 @@ module.exports = function (url, folder) {
     }).catch(err => {
       fs.unlink(dest, reject.bind(null, err));
     });
-  }));
+  });
 };
