@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
       .then(filename => {
         res.download(`./storage/${filename}`);
       }).catch(err => {
-        res.end(err);
+        res.end(err.stack);
       });
     return;
   }
