@@ -5,21 +5,19 @@ const app = express();
 const port = 1337 || process.env.PORT;
 const folder = '/tmp' || process.env.FOLDER;
 
-app.get('/', (req, res) => {
-  const {url} = req.query;
+app.get('/', async (req, res) => {
+  try {
+    const {url} = req.query;
 
-  if (url) {
-    download(url, folder)
-      .then(filename => {
-        res.download(`${folder}/${filename}`);
-      }).catch(err => {
-        res.end(err.stack);
-      });
+    if (!url) {
+      throw new Error('no url param');
+    }
 
-    return;
+    const filename = await download(url, folder);
+    res.download(`${folder}/${filename}`);
+  } catch (err) {
+    res.end(err.stack);
   }
-
-  res.end('xD');
 });
 
 app.listen(port, () => {
