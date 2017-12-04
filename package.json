@@ -1,0 +1,21 @@
+{
+  "name": "download-proxy",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "4.12.1",
+    "eslint-config-xo-space": "0.17.0",
+    "eslint-plugin-unicorn": "3.0.0",
+    "nodemon": "1.12.1"
+  },
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.0.0"
+  }
+}
