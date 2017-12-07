@@ -10,16 +10,16 @@ app.get('/', async (req, res) => {
     const {url} = req.query;
 
     if (!url) {
-      throw new Error('no url param');
+      throw new Error('no url');
     }
 
     const filename = await download(url, folder);
     res.download(`${folder}/${filename}`);
   } catch (err) {
-    res.end(err.stack);
+    res.end(err.message);
   }
 });
 
 app.listen(port, () => {
-  console.log(`Running on http://localhost:${port}`);
+  console.log(`running on ${port}`);
 });
