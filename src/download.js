@@ -20,8 +20,8 @@ module.exports = function (url, folder) {
       method: 'get',
       url,
       responseType: 'stream'
-    }).then(response => {
-      response.data.pipe(writeStream);
+    }).then(({data}) => {
+      data.pipe(writeStream);
     }).catch(err => {
       fs.unlink(dest, reject.bind(null, err));
     });

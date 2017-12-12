@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const download = require('./download');
 
@@ -14,7 +15,7 @@ app.get('/', async (req, res) => {
     }
 
     const filename = await download(url, folder);
-    res.download(`${folder}/${filename}`);
+    res.download(path.join(folder, filename));
   } catch (err) {
     res.end(err.message);
   }
