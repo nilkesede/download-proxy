@@ -6,8 +6,6 @@ const app = express();
 const port = 1337 || process.env.PORT;
 const folder = '/tmp' || process.env.FOLDER;
 
-app.disable('x-powered-by');
-
 app.get('/', async (req, res) => {
   try {
     const {url} = req.query;
