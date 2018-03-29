@@ -20,5 +20,8 @@
   "engines": {
     "node": ">=8.0.0",
     "npm": ">=5.0.0"
+  },
+  "now": {
+    "alias": "download-proxy.now.sh"
   }
 }
