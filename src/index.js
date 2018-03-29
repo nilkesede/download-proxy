@@ -3,8 +3,8 @@ const express = require('express');
 const download = require('./download');
 
 const app = express();
-const port = 1337 || process.env.PORT;
-const folder = 'storage' || process.env.FOLDER;
+const port = process.env.PORT || 1337;
+const folder = process.env.FOLDER || 'storage';
 
 app.get('/', async (req, res) => {
   try {
