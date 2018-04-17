@@ -2,20 +2,14 @@
   "name": "download-proxy",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src",
-    "dev": "nodemon --inspect src"
-  },
   "dependencies": {
-    "axios": "0.18.0",
-    "express": "4.16.3"
+    "express": "4.16.3",
+    "got": "8.3.0"
   },
   "devDependencies": {
     "eslint": "4.19.1",
     "eslint-config-xo-space": "0.18.0",
-    "eslint-plugin-unicorn": "4.0.2",
-    "nodemon": "1.17.2"
+    "eslint-plugin-unicorn": "4.0.3"
   },
   "engines": {
     "node": ">=8.0.0",
