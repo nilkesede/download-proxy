@@ -2,20 +2,43 @@
   "name": "download-proxy",
   "version": "0.0.1",
   "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "test": "jest"
+  },
   "dependencies": {
+    "axios": "0.18.0",
     "express": "4.16.3",
-    "got": "8.3.0"
+    "next": "6.0.3",
+    "prop-types": "15.6.1",
+    "react": "16.4.0",
+    "react-dom": "16.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "8.2.3",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.1",
+    "eslint-config-react-app": "next",
+    "eslint-config-xo-react": "0.16.0",
     "eslint-config-xo-space": "0.18.0",
-    "eslint-plugin-unicorn": "4.0.3"
+    "eslint-plugin-flowtype": "2.47.1",
+    "eslint-plugin-import": "2.12.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.8.2",
+    "eslint-plugin-unicorn": "4.0.3",
+    "jest": "23.0.0"
   },
   "engines": {
     "node": ">=8.0.0",
     "npm": ">=5.0.0"
   },
   "now": {
-    "alias": "download-proxy.now.sh"
+    "alias": "download-proxy.now.sh",
+    "env": {
+      "FOLDER": "/tmp"
+    }
   }
 }

@@ -1,13 +1,15 @@
-'use strict';
-
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const got = require('got');
+const axios = require('axios');
+const next = require('next');
 
-const app = express();
-const port = process.env.PORT || 1337;
+const port = parseInt(process.env.PORT, 10) || 1337;
+const dev = process.env.NODE_ENV !== 'production';
 const folder = process.env.FOLDER || 'storage';
+
+const app = next({dev});
+const handle = app.getRequestHandler();
 
 const download = function (url, folder) {
   return new Promise((resolve, reject) => {
@@ -23,26 +25,43 @@ const download = function (url, folder) {
       fs.unlink(dest, reject.bind(null, err));
     });
 
-    got.stream(url)
-      .pipe(writeStream);
+    axios({
+      url,
+      method: 'get',
+      responseType: 'stream'
+    }).then(response => {
+      response.data.pipe(writeStream);
+    }).catch(err => reject.bind(null, err));
   });
 };
 
-app.get('/', async (req, res) => {
-  try {
-    const {url} = req.query;
+app.prepare().then(() => {
+  const server = express();
 
-    if (!url) {
-      throw new Error('no url');
+  server.get('/download', async (req, res) => {
+    try {
+      const {url} = req.query;
+
+      if (!url) {
+        throw new Error('no url');
+      }
+
+      const filename = await download(url, folder);
+      res.download(path.join(folder, filename));
+    } catch (err) {
+      res.end(err.message);
+    }
+  });
+
+  server.get('*', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, err => {
+    if (err) {
+      throw err;
     }
 
-    const filename = await download(url, folder);
-    res.download(path.join(folder, filename));
-  } catch (err) {
-    res.end(err.message);
-  }
-});
-
-app.listen(port, () => {
-  console.log(`running on ${port}`);
+    console.log(`> Ready on http://localhost:${port}`);
+  });
 });

@@ -1,9 +1,13 @@
 module.exports = {
   extends: [
+    'react-app',
     'xo-space/esnext',
-    'plugin:unicorn/recommended'
+    'xo-react/space',
+    'plugin:unicorn/recommended',
+    'plugin:jsx-a11y/recommended'
   ],
   plugins: [
-    'unicorn'
+    'unicorn',
+    'jsx-a11y'
   ]
 };
