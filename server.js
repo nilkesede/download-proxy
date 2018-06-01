@@ -1,8 +1,7 @@
 const path = require('path');
-const fs = require('fs');
 const express = require('express');
-const axios = require('axios');
 const next = require('next');
+const download = require('download');
 
 const port = parseInt(process.env.PORT, 10) || 1337;
 const dev = process.env.NODE_ENV !== 'production';
@@ -11,44 +10,19 @@ const folder = process.env.FOLDER || 'storage';
 const app = next({dev});
 const handle = app.getRequestHandler();
 
-const download = function (url, folder, name) {
-  return new Promise((resolve, reject) => {
-    const filename = name || path.basename(url);
-    const dest = path.join(folder, filename);
-    const writeStream = fs.createWriteStream(dest);
-
-    writeStream.on('finish', () => {
-      resolve(filename);
-    });
-
-    writeStream.on('error', err => {
-      fs.unlink(dest, reject.bind(null, err));
-    });
-
-    axios({
-      url,
-      method: 'get',
-      responseType: 'stream'
-    }).then(response => {
-      response.data.pipe(writeStream);
-    }).catch(err => {
-      reject(err);
-    });
-  });
-};
-
 app.prepare().then(() => {
   const server = express();
 
   server.get('/download', async (req, res) => {
     try {
       const {url, name} = req.query;
+      const filename = name || path.basename(url);
 
       if (!url) {
         throw new Error('no url');
       }
 
-      const filename = await download(url, folder, name);
+      await download(url, folder, {filename});
       res.download(path.join(folder, filename));
     } catch (err) {
       res.end(err.message);
