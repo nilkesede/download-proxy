@@ -13,7 +13,7 @@ export default class Index extends Component {
 
   download = e => {
     if (e.keyCode === 13) {
-      location.replace(`/download?url=${this.state.value}`);
+      location.replace(`/download?url=${encodeURIComponent(this.state.value)}`);
     }
   }
 

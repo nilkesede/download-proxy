@@ -11,9 +11,9 @@ const folder = process.env.FOLDER || 'storage';
 const app = next({dev});
 const handle = app.getRequestHandler();
 
-const download = function (url, folder) {
+const download = function (url, folder, name) {
   return new Promise((resolve, reject) => {
-    const filename = path.basename(url);
+    const filename = name || path.basename(url);
     const dest = path.join(folder, filename);
     const writeStream = fs.createWriteStream(dest);
 
@@ -31,7 +31,9 @@ const download = function (url, folder) {
       responseType: 'stream'
     }).then(response => {
       response.data.pipe(writeStream);
-    }).catch(err => reject.bind(null, err));
+    }).catch(err => {
+      reject(err);
+    });
   });
 };
 
@@ -40,13 +42,13 @@ app.prepare().then(() => {
 
   server.get('/download', async (req, res) => {
     try {
-      const {url} = req.query;
+      const {url, name} = req.query;
 
       if (!url) {
         throw new Error('no url');
       }
 
-      const filename = await download(url, folder);
+      const filename = await download(url, folder, name);
       res.download(path.join(folder, filename));
     } catch (err) {
       res.end(err.message);
