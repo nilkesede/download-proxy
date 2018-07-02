@@ -1,0 +1,6 @@
+{
+    "alias": "download-proxy.now.sh",
+    "env": {
+        "FOLDER": "/tmp"
+    }
+}

@@ -55,7 +55,7 @@ export default class Index extends Component {
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            margin-bottom: -18px;
+            margin-bottom: -38px;
           }
           .form-control {
             width: 70vw;
@@ -72,6 +72,7 @@ export default class Index extends Component {
             text-align: center;
             display: block;
             text-decoration: none;
+            margin-bottom: 20px;
           }`}
         </style>
       </div>
