@@ -12,6 +12,7 @@ module.exports = {
   ],
   rules: {
     'react/jsx-closing-bracket-location': 'off',
-    'react/jsx-closing-tag-location': 'off'
+    'react/jsx-closing-tag-location': 'off',
+    "unicorn/catch-error-name": ["error", {"name": "err"}]
   }
 };

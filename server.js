@@ -29,9 +29,7 @@ app.prepare().then(() => {
     }
   });
 
-  server.get('*', (req, res) => {
-    return handle(req, res);
-  });
+  server.get('*', (req, res) => handle(req, res));
 
   server.listen(port, err => {
     if (err) {

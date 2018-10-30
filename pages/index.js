@@ -28,9 +28,9 @@ export default class Index extends Component {
         <div className="container">
           <input type="text"
             value={this.state.value}
-            onChange={this.handleChange}
+            className="form-control"
             onKeyUp={this.download}
-            className="form-control"/>
+            onChange={this.handleChange}/>
         </div>
 
         <a href="http://ksde.pw"
