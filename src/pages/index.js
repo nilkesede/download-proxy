@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
-import Head from '../components/head';
+import Head from '../../components/head';
 
 export default class Index extends Component {
-  constructor() {
-    super();
-    this.state = {value: ''};
+  state = {value: ''};
+
+  handleChange = event => {
+    this.setState({value: event.target.value});
   }
 
-  handleChange = e => {
-    this.setState({value: e.target.value});
-  }
-
-  download = e => {
-    if (e.keyCode === 13) {
+  download = event => {
+    if (event.keyCode === 13) {
       location.replace(`/download?url=${encodeURIComponent(this.state.value)}`);
     }
   }
