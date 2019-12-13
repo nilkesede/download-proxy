@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Index from '../pages';
+import Index from '../src/pages';
 
 Enzyme.configure({adapter: new Adapter()});
 
